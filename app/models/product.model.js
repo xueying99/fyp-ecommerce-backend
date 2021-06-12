@@ -3,8 +3,17 @@ module.exports = (sequelize, Sequelize) => {
       productname: {
         type: Sequelize.STRING
       },
+      category: {
+        type: Sequelize.STRING
+      },
       description: {
         type: Sequelize.STRING
+      },
+      size: {
+        type: Sequelize.STRING
+      },
+      price: {
+        type: Sequelize.DOUBLE
       },
       published: {
         type: Sequelize.BOOLEAN

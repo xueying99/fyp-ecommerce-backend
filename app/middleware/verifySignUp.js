@@ -53,3 +53,5 @@ const verifySignUp = {
     checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail,
     checkRolesExisted: checkRolesExisted
 };
+
+module.exports = verifySignUp;

@@ -21,10 +21,10 @@ const db = require("./app/models");
 const Role = db.role;
 
 //force: true will drop the table if it already exists
-db.sequelize.sync({ force: true }).then(() => {
-    console.log("Drop and Resync database.");
-    initial();
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//     console.log("Drop and Resync database.");
+//     initial();
+// });
 
 // simple route
 app.get("/", (req, res) => {
@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
 
 // routes
 require("./app/routes/tutorial.routes")(app);
+require("./app/routes/promo.routes")(app);
 require("./app/routes/product.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);

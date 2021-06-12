@@ -26,6 +26,7 @@ db.sequelize = sequelize;
 
 // db.customers = require("./customer.model.js")(sequelize, Sequelize);
 db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
+db.promos = require("./promo.model.js")(sequelize, Sequelize);
 db.products = require("./product.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
