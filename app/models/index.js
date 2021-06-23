@@ -24,12 +24,12 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// db.customers = require("./customer.model.js")(sequelize, Sequelize);
-db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
-db.promos = require("./promo.model.js")(sequelize, Sequelize);
-db.products = require("./product.model.js")(sequelize, Sequelize);
+db.tutorials = require("../models/tutorial.model.js")(sequelize, Sequelize);
+db.products = require("../models/product.model.js")(sequelize, Sequelize);
+db.events = require("../models/event.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.cart = require("../models/cart.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -40,7 +40,11 @@ db.user.belongsToMany(db.role, {
   through: "user_roles",
   foreignKey: "userId",
   otherKey: "roleId"
-})
+});
+db.cart.hasOne(db.products, {
+  foreignKey: "productId",
+  otherKey: "productPrice"
+});
 
 db.ROLES = ["user", "admin", "moderator"];
 
