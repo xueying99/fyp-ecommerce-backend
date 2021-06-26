@@ -27,7 +27,7 @@ exports.create = function(req, res){
   res.sendStatus(200)
 }
 
-// Delete a Tutorial with the specified id in the request
+// Delete a Cart with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 

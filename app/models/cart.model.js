@@ -6,9 +6,6 @@ module.exports = (sequelize, Sequelize) => {
       userId: {
           type: Sequelize.INTEGER
       },
-      // date: {
-      //     type: Sequelize.DATE
-      // },
       productId: {
           type: Sequelize.INTEGER
       },
