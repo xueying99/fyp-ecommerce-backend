@@ -4,19 +4,23 @@ const db = require("../models");
 const User = db.user;
 
 verifyToken = (req, res, next) => {
+    //check header for token
     let token = req.headers["authorization"];
     if(!token) {
+        // if no token, return an error
         return res.status(403).send({
             message: "No token provided!"
         });
     }
     token = token.split("Bearer ")[1]
+    // verify secret and checks exp
     jwt.verify(token, config.secret, (err, decoded) => {
         if(err) {
             return res.status(401).send({
                 message: "Unauthorized!"
             });
         }
+        // if everything good, save to request for use in other routes 
         req.userId = decoded.id;
         next();
     });

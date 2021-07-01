@@ -46,9 +46,9 @@ db.cart.hasOne(db.products, {
   foreignKey: "productId",
   otherKey: "productPrice"
 });
-db.order.hasOne(db.cart, {
-  foreignKey: "cartId",
-  otherKey: "totalPrice"
+db.order.hasOne(db.products, {
+  foreignKey: "productId",
+  otherKey: "productPrice"
 });
 
 db.ROLES = ["user", "admin", "moderator"];

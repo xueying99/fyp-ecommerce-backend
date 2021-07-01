@@ -13,5 +13,7 @@ module.exports = app => {
     //create a new Cart
     router.delete("/", authJwt.verifyToken, carts.deleteAll);
 
+    router.post("/checkout", authJwt.verifyToken, carts.checkout);
+
     app.use("/api/carts", router);
 };

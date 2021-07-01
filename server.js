@@ -20,9 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 const { user } = require("./app/models");
 const Role = db.role;
+const User = db.user;
 const Product = db.products;
 const Event = db.events;
-const User = db.user;
+const Cart = db.cart;
+const Order = db.order;
 
 //force: true will drop the table if it already exists
 db.sequelize.sync({ force: true }).then(() => {

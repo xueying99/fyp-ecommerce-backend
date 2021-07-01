@@ -16,18 +16,48 @@ exports.findAll = function(req, res){
   })
 }
 
-exports.create = function(req, res){
-  console.log("create")
-  Order.create({
-    cartId: req.body.cartId, 
-    quantity: req.body.quantity, 
+// exports.create = function(req, res){ //.then
+//   console.log("create")
+//   Order.create({
+//     cartId: req.body.cartId, 
+//     quantity: req.body.quantity, 
+//     userId: req.userId, 
+//     totalPrice: req.body.productPrice,
+//     date: req.body.date,
+//     accepted: req.body.accepted ? req.body.accepted : false
+//   })
+//   res.sendStatus(200)
+// }
+
+// Create and Save a new Order
+exports.create = (req, res) => {
+  //validate request
+  if(!req.body.productId){
+      res.status(400).send({
+          message: "Content cannot be empty!"
+      });
+      return;
+  }
+
+  //create a Order
+  const order = {
     userId: req.userId, 
-    totalPrice: req.body.productPrice,
+    productId: req.body.productId, 
+    quantity: req.body.quantity, 
+    productPrice: req.body.productPrice,
     date: req.body.date,
     accepted: req.body.accepted ? req.body.accepted : false
-  })
-  res.sendStatus(200)
-}
+  };
+
+  //save Order in the database
+  Order.create(order)
+      .then(data => { res.send(data); })
+      .catch(err => {
+          res.status(500).send({
+              message: err.message || "Some error occurred while retrieving orders."
+          });
+      });
+};
 
 // Delete a Order with the specified id in the request
 exports.delete = (req, res) => {

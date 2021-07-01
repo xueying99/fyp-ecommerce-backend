@@ -3,13 +3,13 @@ module.exports = (sequelize, Sequelize) => {
         userId: {
             type: Sequelize.INTEGER
         },
-        cartId: {
+        productId: {
             type: Sequelize.INTEGER
         },
-        totalQuantity: {
+        quantity: {
             type: Sequelize.INTEGER
         },
-        totalPrice: {
+        productPrice: {
             type: Sequelize.DOUBLE
         },
         date: {
