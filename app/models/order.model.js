@@ -3,15 +3,6 @@ module.exports = (sequelize, Sequelize) => {
         userId: {
             type: Sequelize.INTEGER
         },
-        productId: {
-            type: Sequelize.INTEGER
-        },
-        quantity: {
-            type: Sequelize.INTEGER
-        },
-        productPrice: {
-            type: Sequelize.DOUBLE
-        },
         date: {
             type: Sequelize.DATE
         },
@@ -19,6 +10,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BOOLEAN
         }
     }, { timestamps: false });
+
+    // Order.associate = function(models) {
+    //     // associations can be defined here
+    //     models.Order.hasMany( models.OrderItem, { foreignKey: 'orderId' } );
+    // };
+      
 
     return Order;
 };

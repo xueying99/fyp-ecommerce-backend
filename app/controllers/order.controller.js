@@ -1,19 +1,31 @@
-const { order } = require("../models");
+const { order, orderItem } = require("../models");
 const db = require("../models");
 const Order = db.order;
 const Op = db.Sequelize.Op;
+const OrderItem = db.orderItem;
+const Product = db.products;
 
 exports.findAll = function(req, res){
   console.log("findAll")
   Order.findAll
   ({
-    where: {
-      userId: req.userId
-    }
+    include: [{
+        model: OrderItem,
+        include: [{
+            model: Product
+        }]
+    }],
+    where: { userId: req.userId }
   }) 
-  .then(order => {
-    res.send(order)
-  })
+  // .then(order => {
+  //   res.send(order)
+  // })
+  .then(data => { res.send(data); })
+  .catch(err => {
+    res.status(500).send({
+        message: err.message || "Some error occurred while retrieving orders."
+    });
+});
 }
 
 // exports.create = function(req, res){ //.then
@@ -32,19 +44,19 @@ exports.findAll = function(req, res){
 // Create and Save a new Order
 exports.create = (req, res) => {
   //validate request
-  if(!req.body.productId){
-      res.status(400).send({
-          message: "Content cannot be empty!"
-      });
-      return;
-  }
+//   if(!req.body.productId){
+//       res.status(400).send({
+//           message: "Content cannot be empty!"
+//       });
+//       return;
+//   }
 
   //create a Order
   const order = {
     userId: req.userId, 
-    productId: req.body.productId, 
-    quantity: req.body.quantity, 
-    productPrice: req.body.productPrice,
+    // productId: req.body.productId, 
+    // quantity: req.body.quantity, 
+    // productPrice: req.body.productPrice,
     date: req.body.date,
     accepted: req.body.accepted ? req.body.accepted : false
   };
@@ -64,7 +76,10 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   Order.destroy({
-      where: { id: id }
+      where: { 
+          id: id,
+          userId: req.userId
+        }
   })
       .then(num => {
           if(num == 1){
@@ -83,7 +98,7 @@ exports.delete = (req, res) => {
 // Delete all Orders from the database.
 exports.deleteAll = (req, res) => {
     Order.destroy({
-      where: {},
+      where: { userId: req.userId },
       truncate: false
   })
       .then(nums => {

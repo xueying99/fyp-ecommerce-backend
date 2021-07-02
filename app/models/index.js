@@ -31,12 +31,13 @@ db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.cart = require("../models/cart.model.js")(sequelize, Sequelize);
 db.order = require("../models/order.model.js")(sequelize, Sequelize);
+db.orderItem = require("../models/orderItem.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
   otherKey: "userId"
-});
+}); 
 db.user.belongsToMany(db.role, {
   through: "user_roles",
   foreignKey: "userId",
@@ -46,10 +47,12 @@ db.cart.hasOne(db.products, {
   foreignKey: "productId",
   otherKey: "productPrice"
 });
-db.order.hasOne(db.products, {
-  foreignKey: "productId",
-  otherKey: "productPrice"
+db.order.hasMany(db.orderItem, {
+  foreignKey: "orderId",  
 });
+db.products.hasMany(db.orderItem, {
+  foreignKey: "productId",
+})
 
 db.ROLES = ["user", "admin", "moderator"];
 

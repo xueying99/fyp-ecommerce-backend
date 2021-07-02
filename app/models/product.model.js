@@ -26,5 +26,10 @@ module.exports = (sequelize, Sequelize) => {
       }
     }, {timestamps: false});
   
+    // Product.associate = function(models) {
+    //   // associations can be defined here
+    //   models.Product.hasMany( models.OrderItem, { foreignKey: 'productId' } );
+    // };
+    
     return Product;
   };

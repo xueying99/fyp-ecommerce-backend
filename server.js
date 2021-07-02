@@ -25,6 +25,7 @@ const Product = db.products;
 const Event = db.events;
 const Cart = db.cart;
 const Order = db.order;
+const OrderItem = db.orderItem;
 
 //force: true will drop the table if it already exists
 db.sequelize.sync({ force: true }).then(() => {
@@ -45,6 +46,7 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/cart.routes")(app);
 require("./app/routes/order.routes")(app);
+require("./app/routes/orderItem.routes")(app);
 
 
 // set port, listen for requests
