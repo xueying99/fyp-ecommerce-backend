@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Product
 exports.create = (req, res) => {
     //validate request
-    if(!req.body.productname){
+    if (!req.body.productname) {
         res.status(400).send({
             message: "Content cannot be empty!"
         });
@@ -19,39 +19,20 @@ exports.create = (req, res) => {
         description: req.body.description,
         size: req.body.size,
         price: req.body.price,
-        // imagetype: req.file.mimetype,
-        // imagename: req.file.originalname,
-        // data: fs.readFileSync(
-        //     __basedir + "/resources/static/assets/uploads/" + req.file.filename
-        //   ),
         published: req.body.published ? req.body.published : true
     };
 
     //save Product in the database
-    // try {
-    //     console.log(req.file);
 
-    //     if(req.file == undefined) {
-    //         return res.send('You must select a file.');
-    //     }
-
-        Product.create(product)
-            .then(data => {
-                // fs.writeFileSync(
-                //     __basedir + "/resources/static/assets/tmp/" + data.imagename,
-                //     data.imagedata
-                //   ); 
-                res.send(data); 
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving products."
-                });
+    Product.create(product)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving products."
             });
-        // } catch (error) {
-        //     console.log(error);
-        //     return res.send(`Error when trying upload images: ${error}`);
-        // }
+        });
 };
 
 // Retrieve all Products from the database.
@@ -89,10 +70,10 @@ exports.update = (req, res) => {
         where: { id: id }
     })
         .then(num => {
-            if(num == 1){
-                res.send({message: "Product was updated successfully."});
+            if (num == 1) {
+                res.send({ message: "Product was updated successfully." });
             } else {
-                res.send({message: `Cannot update Product with id=${id}. Maybe Product was not found or res.body is empty.`});
+                res.send({ message: `Cannot update Product with id=${id}. Maybe Product was not found or res.body is empty.` });
             }
         })
         .catch(err => {
@@ -110,10 +91,10 @@ exports.delete = (req, res) => {
         where: { id: id }
     })
         .then(num => {
-            if(num == 1){
-                res.send({message: "Product was deleted successfully."});
+            if (num == 1) {
+                res.send({ message: "Product was deleted successfully." });
             } else {
-                res.send({ message: `Cannot delete Product with id=${id}. Maybe Product was not found.`});
+                res.send({ message: `Cannot delete Product with id=${id}. Maybe Product was not found.` });
             }
         })
         .catch(err => {
@@ -130,7 +111,7 @@ exports.deleteAll = (req, res) => {
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Products were deleted successfully.`});
+            res.send({ message: `${nums} Products were deleted successfully.` });
         })
         .catch(err => {
             res.status(500).send({

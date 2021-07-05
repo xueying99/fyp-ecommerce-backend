@@ -9,12 +9,6 @@ exports.findAll = function (req, res) {
     console.log("findAll")
     Order.findAll
         ({
-            // include: [{
-            //     model: OrderItem,
-            //     include: [{
-            //         model: Product
-            //     }]
-            // }],
             // where: { userId: req.userId }
         })
         .then(order => { res.send(order); })

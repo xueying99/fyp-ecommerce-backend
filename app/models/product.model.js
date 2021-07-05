@@ -21,24 +21,10 @@ module.exports = (sequelize, Sequelize) => {
       quantity: {
         type: Sequelize.STRING
       },
-      // imagetype: {
-      //   type: Sequelize.STRING
-      // },
-      // imagename: {
-      //   type: Sequelize.STRING
-      // },
-      // imagedata: {
-      //   type: Sequelize.BLOB("long")
-      // },
       published: {
         type: Sequelize.BOOLEAN
       }
     }, {timestamps: false});
   
-    // Product.associate = function(models) {
-    //   // associations can be defined here
-    //   models.Product.hasMany( models.OrderItem, { foreignKey: 'productId' } );
-    // };
-    
     return Product;
   };

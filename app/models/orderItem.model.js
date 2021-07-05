@@ -15,11 +15,5 @@ module.exports = (sequelize, Sequelize) => {
 
     }, { timestamps: false });
 
-    // OrderItem.associate = function(models) {
-    //     // associations can be defined here
-    //     models.OrderItem.belongsTo( models.Order, { foreignKey: 'orderId' } );
-    //     models.OrderItem.belongsTo( models.Product, { foreignKey: 'productId' } );
-    // };
-
     return OrderItem;
 };
