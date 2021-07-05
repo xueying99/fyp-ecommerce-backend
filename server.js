@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const app = express();
 
+global.__basedir = __dirname;
+
 var corsOptions = {
   origin: "http://localhost:8081"
 };
@@ -27,6 +29,9 @@ const Cart = db.cart;
 const Order = db.order;
 const OrderItem = db.orderItem;
 
+// const initRoutes = require("./src/routes");
+// initRoutes(app);
+
 //force: true will drop the table if it already exists
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and Resync database.");
@@ -47,6 +52,7 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/cart.routes")(app);
 require("./app/routes/order.routes")(app);
 require("./app/routes/orderItem.routes")(app);
+require('./app/routes/file.routes')(app);
 
 
 // set port, listen for requests

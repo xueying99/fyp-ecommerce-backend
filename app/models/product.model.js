@@ -21,6 +21,15 @@ module.exports = (sequelize, Sequelize) => {
       quantity: {
         type: Sequelize.STRING
       },
+      // imagetype: {
+      //   type: Sequelize.STRING
+      // },
+      // imagename: {
+      //   type: Sequelize.STRING
+      // },
+      // imagedata: {
+      //   type: Sequelize.BLOB("long")
+      // },
       published: {
         type: Sequelize.BOOLEAN
       }

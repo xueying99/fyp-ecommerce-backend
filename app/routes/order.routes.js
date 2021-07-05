@@ -12,6 +12,8 @@ module.exports = app => {
     router.delete("/:id", authJwt.verifyToken, orders.delete);
     //create a new Order
     router.delete("/", authJwt.verifyToken, orders.deleteAll);
+    //update a Order
+    router.put("/update", authJwt.verifyToken, orders.update);
 
     app.use("/api/orders", router);
 };

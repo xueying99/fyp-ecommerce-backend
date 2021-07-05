@@ -1,7 +1,7 @@
 const { orderItem } = require("../models");
 const db = require("../models");
-// const Cart = db.cart;
 const Op = db.Sequelize.Op;
+// const Cart = db.cart;
 // const Order = db.order;
 const OrderItem = db.orderItem;
 
@@ -9,10 +9,10 @@ exports.findAll = function (req, res) {
     console.log("findAll")
     OrderItem.findAll
         ({
-            where: { userId: req.userId }
+            // where: { userId: req.userId }
         })
-        .then(orderItem => {
-            res.send(orderItem)
+        .then(data => {
+            res.send(data)
         })
         .catch(err => {
             res.status(500).send({

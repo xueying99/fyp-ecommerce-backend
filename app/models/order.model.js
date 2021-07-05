@@ -6,7 +6,10 @@ module.exports = (sequelize, Sequelize) => {
         date: {
             type: Sequelize.DATE
         },
-        accepted: {
+        payment: {
+            type: Sequelize.DOUBLE
+        },
+        completed: {
             type: Sequelize.BOOLEAN
         }
     }, { timestamps: false });

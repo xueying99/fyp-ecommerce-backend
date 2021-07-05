@@ -10,11 +10,11 @@ module.exports = app => {
     //retrieve all published Events
     router.get("/published", events.findAllPublished);
     //retrieve a single Event with id
-    router.get("/event-mgt/:id", events.findOne);
+    router.get("/:id", events.findOne);
     //update a Event with id
-    router.put("/event-mgt/:id", events.update);
+    router.put("/:id", events.update);
     //delete a Event with id
-    router.delete("/event-mgt/:id", events.delete);
+    router.delete("/:id", events.delete);
     //create a new Event
     router.delete("/", events.deleteAll);
     

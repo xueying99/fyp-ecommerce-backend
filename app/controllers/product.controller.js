@@ -19,17 +19,39 @@ exports.create = (req, res) => {
         description: req.body.description,
         size: req.body.size,
         price: req.body.price,
-        published: req.body.published ? req.body.published : false
+        // imagetype: req.file.mimetype,
+        // imagename: req.file.originalname,
+        // data: fs.readFileSync(
+        //     __basedir + "/resources/static/assets/uploads/" + req.file.filename
+        //   ),
+        published: req.body.published ? req.body.published : true
     };
 
     //save Product in the database
-    Product.create(product)
-        .then(data => { res.send(data); })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving products."
+    // try {
+    //     console.log(req.file);
+
+    //     if(req.file == undefined) {
+    //         return res.send('You must select a file.');
+    //     }
+
+        Product.create(product)
+            .then(data => {
+                // fs.writeFileSync(
+                //     __basedir + "/resources/static/assets/tmp/" + data.imagename,
+                //     data.imagedata
+                //   ); 
+                res.send(data); 
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving products."
+                });
             });
-        });
+        // } catch (error) {
+        //     console.log(error);
+        //     return res.send(`Error when trying upload images: ${error}`);
+        // }
 };
 
 // Retrieve all Products from the database.

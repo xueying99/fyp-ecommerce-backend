@@ -1,7 +1,7 @@
 const { cart } = require("../models");
 const db = require("../models");
-const Cart = db.cart;
 const Op = db.Sequelize.Op;
+const Cart = db.cart;
 const Order = db.order;
 const OrderItem = db.orderItem;
 
@@ -16,6 +16,11 @@ exports.findAll = function (req, res) {
         .then(cart => {
             res.send(cart)
         })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving carts."
+            });
+        });
 }
 
 // Create and Save a new Cart
@@ -93,8 +98,9 @@ exports.checkout = (req, res) => {
         .then(carts => {
             let order = {
                 userId: req.userId,
-                date: new Date().toLocaleString(),
-                accepted: false,
+                payment: req.body.payment,
+                date: new Date().toDateString(),  
+                completed: true,
             }
             Order.create(order).then(o => {
                 let orderItems = []
@@ -116,6 +122,4 @@ exports.checkout = (req, res) => {
                 })
             })
         })
-
-
 };
