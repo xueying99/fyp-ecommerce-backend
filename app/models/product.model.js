@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.DOUBLE
       },
       quantity: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       published: {
         type: Sequelize.BOOLEAN

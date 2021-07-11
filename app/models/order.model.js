@@ -4,12 +4,30 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         date: {
-            type: Sequelize.DATE
+            type: Sequelize.STRING
         },
         payment: {
             type: Sequelize.DOUBLE
         },
-        completed: {
+        shippingname: {
+            type: Sequelize.STRING
+        },
+        shippingaddress: {
+            type: Sequelize.STRING
+        },
+        shippingcontact: {
+            type: Sequelize.STRING
+        },
+        bankname: {
+            type: Sequelize.STRING
+        },
+        bankacc: {
+            type: Sequelize.STRING
+        },
+        accepted: {  //payment status
+            type: Sequelize.BOOLEAN
+        },
+        completed: {  //order status
             type: Sequelize.BOOLEAN
         }
     }, { timestamps: false });

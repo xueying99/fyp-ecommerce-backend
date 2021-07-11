@@ -98,9 +98,15 @@ exports.checkout = (req, res) => {
         .then(carts => {
             let order = {
                 userId: req.userId,
+                date: null,
                 payment: req.body.payment,
-                date: new Date().toDateString(),  
-                completed: true,
+                shippingname: null,
+                shippingaddress: null,
+                shippingcontact: null,
+                bankname: null,
+                bankacc: null,
+                completed: false,  //order status
+                accepted: false   //payment status
             }
             Order.create(order).then(o => {
                 let orderItems = []
@@ -115,7 +121,7 @@ exports.checkout = (req, res) => {
                 OrderItem.bulkCreate(orderItems).then(() => {
                     Cart.destroy({
                         where: { userId: req.userId }
-                    })
+                        })
                         .then(() => {
                             res.status(200)
                         })

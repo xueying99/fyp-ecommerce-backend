@@ -78,35 +78,72 @@ async function initial() {
 
   await Product.create({
     id: 1,
-    title: "dress01",
-    productname: "green long dress",
+    title: "women01",
+    productname: "V Neck Jumpsuit",
     category: "women",
-    description: "long dress in green color",
-    size: "s,m,l",
+    description: "-- Blue Adjustable camisole shoulder straps." + 
+                  " The fabric is a combination of 63% of Rayon and 37% of Linen." +
+                  " Machine wash cold, gentle cycle.",
+    size: "XL",
     price: "87.00",
-    quantity: "5"
+    quantity: "5",
+    published: true
   });
 
   await Product.create({
     id: 2,
-    title: "dress02",
-    productname: "light green shirts",
+    title: "women02",
+    productname: "Cotton Slit Skirt",
     category: "women",
-    description: "light green tops with white short pants",
-    size: "s,m",
+    description: " -- Brown Elasticated waist for a comfortable fit." + 
+                 " Stylish back slit for added ease of movement." + 
+                 " Textured fabric. Cool touch function. Adjustable inner drawstring.",
+    size: "S",
     price: "49.90",
-    quantity: "12"
+    quantity: "12",
+    published: true
   });
 
   await Product.create({
     id: 3,
-    title: "dress03",
-    productname: "orange short dress",
+    title: "women03",
+    productname: "Waffle Long Sleeve T-Shirt",
     category: "women",
-    description: "dress in orange with white ribbon",
-    size: "m,l",
-    price: "32.25",
-    quantity: "26"
+    description: " -- Blue Updated with a larger waffle knit, softer texture, and more comfortable" + 
+                 "feel against the skin in all temperatures.  A casual T-shirt for a relaxed style." + 
+                 " Machine wash cold, gentle cycle.",
+    size: "L",
+    price: "36.99",
+    quantity: "26",
+    published: true
+  });
+
+  await Product.create({
+    id: 4,
+    title: "men01",
+    productname: "Short Sleeve T-Shirt",
+    category: "men",
+    description: " -- Army Green Quick-drying technology makes this item dry quickly even after sweating or washing." + 
+                 " Can be worn by itself or as innerwear thanks to its neckline and overall fit." + 
+                 " Machine wash cold.",
+    size: "S",
+    price: "19.90",
+    quantity: "20",
+    published: true
+  });
+
+  await Product.create({
+    id: 5,
+    title: "men02",
+    productname: "FOURTRY Hoodies",
+    category: "men",
+    description: " -- Black Updated to a crisp fabric with more layers of air, for better thermal insulation and heat retention." + 
+                 " A casual and sporty item that is perfect as everyday wear or for sports." + 
+                 " Machine wash cold, gentle cycle.",
+    size: "M",
+    price: "69.90",
+    quantity: "45",
+    published: true
   });
 
   await Event.create({

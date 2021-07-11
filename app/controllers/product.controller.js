@@ -3,37 +3,78 @@ const Product = db.products;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Product
+// exports.create = (req, res) => {
+//     //validate request
+//     if (!req.body.title || !req.body.productname || !req.body.category || !req.body.description || !req.body.size || !req.body.price) {
+//         res.status(400).send({
+//             message: "Content cannot be empty!"
+//         });
+//         return;
+//     }
+
+//     //create a Product
+//     const product = {
+//         productname: req.body.productname,
+//         category: req.body.category,
+//         description: req.body.description,
+//         size: req.body.size,
+//         price: req.body.price,
+//         published: req.body.published ? req.body.published : true
+//     };
+
+//     //save Product in the database
+
+//     Product.create(product)
+//         .then(data => {
+//             res.send(data);
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message: err.message || "Some error occurred while retrieving products."
+//             });
+//         });
+// };
+
 exports.create = (req, res) => {
     //validate request
-    if (!req.body.productname) {
+    if (!req.body.title || !req.body.productname || !req.body.description || !req.body.size || !req.body.price) {
         res.status(400).send({
             message: "Content cannot be empty!"
         });
         return;
     }
 
-    //create a Product
-    const product = {
-        productname: req.body.productname,
-        category: req.body.category,
-        description: req.body.description,
-        size: req.body.size,
-        price: req.body.price,
-        published: req.body.published ? req.body.published : true
-    };
-
-    //save Product in the database
-
-    Product.create(product)
-        .then(data => {
-            res.send(data);
+    Product.findOne({
+        where: { productname: req.body.productname }
+    })
+        .then(product => {
+            let data = {
+                title: req.body.title,
+                productname: req.body.productname,
+                category: req.body.category,
+                description: req.body.description,
+                size: req.body.size,
+                price: req.body.price,
+                quantity: req.body.quantity,
+                published: false
+            };
+            if(product) {
+                res.status(400).send({
+                    message: "Failed! Product name already existed."
+                });
+                return;
+            } else {
+                Product.create(data).then(e => {
+                    res.send(product);
+                })
+            }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while retrieving products."
+                message: err.message || "Some error occurred while retrieving events."
             });
         });
-};
+}
 
 // Retrieve all Products from the database.
 exports.findAll = (req, res) => {

@@ -19,16 +19,21 @@ exports.findAll = function (req, res) {
         });
 }
 
+// Find a single Product with an id
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+
+    Order.findByPk(id)
+        .then(data => { res.send(data); })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Order with id = " + id
+            });
+        });
+};
+
 // Create and Save a new Order
 exports.create = (req, res) => {
-    //validate request
-    //   if(!req.body.productId){
-    //       res.status(400).send({
-    //           message: "Content cannot be empty!"
-    //       });
-    //       return;
-    //   }
-
     //create a Order
     const order = {
         userId: req.userId,

@@ -3,34 +3,72 @@ const Event = db.events;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Event
+// exports.create = (req, res) => {
+//     //validate request
+//     if(!req.body.title || !req.body.eventname || !req.body.description || !req.body.startdate || !req.body.enddate){
+//         res.status(400).send({
+//             message: "Content cannot be empty!"
+//         });
+//         return;
+//     }
+//     //create a Event
+//     const event = {
+//         title: req.body.title,
+//         eventname: req.body.eventname,
+//         description: req.body.description,
+//         startdate: req.body.startdate,
+//         enddate: req.body.enddate,
+//         published: req.body.published ? req.body.published : false
+//     };
+
+//     //save Event in the database
+//     Event.create(event)
+//         .then(data => { res.send(data); })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message: err.message || "Some error occurred while retrieving events."
+//             });
+//         });
+// };
+
 exports.create = (req, res) => {
     //validate request
-    if(!req.body.title){
+    if(!req.body.title || !req.body.eventname || !req.body.description || !req.body.startdate || !req.body.enddate){
         res.status(400).send({
             message: "Content cannot be empty!"
         });
         return;
     }
 
-    //create a Event
-    const event = {
-        title: req.body.title,
-        eventname: req.body.eventname,
-        description: req.body.description,
-        startdate: req.body.startdate,
-        enddate: req.body.enddate,
-        published: req.body.published ? req.body.published : false
-    };
-
-    //save Event in the database
-    Event.create(event)
-        .then(data => { res.send(data); })
+    Event.findOne({
+        where: { eventname: req.body.eventname }
+    })
+        .then(event => {
+            let data = {
+                title: req.body.title,
+                eventname: req.body.eventname,
+                description: req.body.description,
+                startdate: req.body.startdate,
+                enddate: req.body.enddate,
+                published: false
+            }; 
+            if(event) {
+                res.status(400).send({
+                    message: "Failed! Event name already existed."
+                });
+                return;
+            } else {
+                Event.create(data).then(e => {
+                    res.send(event);
+                })
+            }
+        })
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving events."
             });
         });
-};
+}
 
 // Retrieve all Events from the database.
 exports.findAll = (req, res) => {
