@@ -1,6 +1,7 @@
 const { cart } = require("../models");
 const db = require("../models");
 const Op = db.Sequelize.Op;
+const Product = db.products;
 const Cart = db.cart;
 const Order = db.order;
 const OrderItem = db.orderItem;
@@ -108,9 +109,15 @@ exports.checkout = (req, res) => {
                 completed: false,  //order status
                 accepted: false   //payment status
             }
-            Order.create(order).then(o => {
+            Order.create(order).then(async o => {
                 let orderItems = []
                 for (let i = 0; i < carts.length; i++) {
+                    let product = await Product.findOne({
+                        where: {
+                            id: carts[i].productId,
+                        }
+                    })
+                    product = await product.update( { quantity : product.quantity - carts[i].quantity } )
                     orderItems.push({
                         orderId: o.id,
                         quantity: carts[i].quantity,
