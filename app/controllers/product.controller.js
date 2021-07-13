@@ -37,7 +37,7 @@ const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     //validate request
-    if (!req.body.title || !req.body.productname || !req.body.description || !req.body.size || !req.body.price) {
+    if (!req.body.title || !req.body.category || !req.body.productname || !req.body.description || !req.body.size || !req.body.price) {
         res.status(400).send({
             message: "Content cannot be empty!"
         });
@@ -72,7 +72,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving events."
-            });
+            }); 
         });
 }
 

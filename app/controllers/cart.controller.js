@@ -4,6 +4,7 @@ const Op = db.Sequelize.Op;
 const Cart = db.cart;
 const Order = db.order;
 const OrderItem = db.orderItem;
+const Product = db.products;
 
 exports.findAll = function (req, res) {
     console.log("findAll")
@@ -92,40 +93,55 @@ exports.deleteAll = (req, res) => {
 };
 
 exports.checkout = (req, res) => {
-    Cart.findAll({
-        where: { userId: req.userId }
-    })
-        .then(carts => {
-            let order = {
-                userId: req.userId,
-                date: null,
-                payment: req.body.payment,
-                shippingname: null,
-                shippingaddress: null,
-                shippingcontact: null,
-                bankname: null,
-                bankacc: null,
-                completed: false,  //order status
-                accepted: false   //payment status
-            }
-            Order.create(order).then(o => {
-                let orderItems = []
-                for (let i = 0; i < carts.length; i++) {
-                    orderItems.push({
-                        orderId: o.id,
-                        quantity: carts[i].quantity,
-                        price: carts[i].productPrice,
-                        productId: carts[i].productId
-                    })
-                }
-                OrderItem.bulkCreate(orderItems).then(() => {
-                    Cart.destroy({
-                        where: { userId: req.userId }
-                        })
-                        .then(() => {
-                            res.status(200)
-                        })
-                })
+    try {
+            Cart.findAll({
+                where: { userId: req.userId }
             })
-        })
+                .then(carts => {
+                    let order = {
+                        userId: req.userId,
+                        date: null,
+                        payment: req.body.payment,
+                        shippingname: null,
+                        shippingaddress: null,
+                        shippingcontact: null,
+                        bankname: null,
+                        bankacc: null,
+                        completed: false,  //order status
+                        courier: null,
+                        tracking: null,
+                        accepted: false   //payment status
+                    }
+                    // Order.create(order).then(o => {
+                    Order.create(order).then(async o => {
+                        let orderItems = []
+                        for (let i = 0; i < carts.length; i++) {
+                            let product = await Product.findOne({
+                                where: {
+                                    id: carts[i].productId,
+                                }
+                            })
+                            product = await product.update( { quantity : product.quantity - carts[i].quantity } )
+                            orderItems.push({
+                                orderId: o.id,
+                                quantity: carts[i].quantity,
+                                price: carts[i].productPrice,
+                                productId: carts[i].productId
+                            })
+                        }
+                        OrderItem.bulkCreate(orderItems).then(() => {
+                            Cart.destroy({
+                                where: { userId: req.userId }
+                                })
+                                .then(() => {
+                                    res.status(200)
+                                })
+                        })
+                    })
+                })
+            
+        } catch (error) {
+            console.log(error)
+            res.status(500).json(error)
+        }
 };

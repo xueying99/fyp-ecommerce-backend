@@ -34,6 +34,12 @@ exports.findOne = (req, res) => {
 
 // Create and Save a new Order
 exports.create = (req, res) => {
+    if (!req.body.title || !req.body.category || !req.body.productname || !req.body.description || !req.body.size || !req.body.price) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+        return;
+    }
     //create a Order
     const order = {
         userId: req.userId,
@@ -54,6 +60,13 @@ exports.create = (req, res) => {
 
 // Update a Order by the id in the request
 exports.update = (req, res) => {
+    if (!req.body.date || !req.body.shippingname || !req.body.shippingaddress || !req.body.shippingcontact || !req.body.bankname || !req.body.bankacc ) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+        return;
+    }
+
     const id = req.params.id;
 
     Order.update(req.body, {

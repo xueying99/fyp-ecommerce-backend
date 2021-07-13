@@ -27,6 +27,12 @@ module.exports = (sequelize, Sequelize) => {
         accepted: {  //payment status
             type: Sequelize.BOOLEAN
         },
+        courier: {
+            type: Sequelize.STRING
+        },
+        tracking: {
+            type: Sequelize.STRING
+        },
         completed: {  //order status
             type: Sequelize.BOOLEAN
         }

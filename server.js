@@ -29,9 +29,6 @@ const Cart = db.cart;
 const Order = db.order;
 const OrderItem = db.orderItem;
 
-// const initRoutes = require("./src/routes");
-// initRoutes(app);
-
 //force: true will drop the table if it already exists
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and Resync database.");
@@ -152,7 +149,8 @@ async function initial() {
     eventname: "Father's Day Promotion",
     description: "Happy Father's Day on 20 June 2021",
     startdate: "8 June 2021 00:00",
-    enddate: "28 June 2021 23:59"
+    enddate: "28 June 2021 23:59",
+    published: true
   });
 
   await Event.create({
@@ -161,7 +159,7 @@ async function initial() {
     eventname: "7.7 Promotion",
     description: "Promotion on 7 July 2021 only",
     startdate: "7 July 2021 00:00",
-    enddate: "7 July 2021 23:59"
+    enddate: "7 July 2021 23:59",
   });
 
   await Event.create({
@@ -170,7 +168,7 @@ async function initial() {
     eventname: "Black Friday",
     description: "Black Friday celebration - huge discount on every friday",
     startdate: "25 June 2021 00:00",
-    enddate: "25 June 2021 23:59"
+    enddate: "25 June 2021 23:59",
   });
 
   let a = await User.create({
