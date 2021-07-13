@@ -94,102 +94,55 @@ exports.deleteAll = (req, res) => {
 };
 
 exports.checkout = (req, res) => {
-<<<<<<< HEAD
     try {
-            Cart.findAll({
-                where: { userId: req.userId }
-            })
-                .then(carts => {
-                    let order = {
-                        userId: req.userId,
-                        date: null,
-                        payment: req.body.payment,
-                        shippingname: null,
-                        shippingaddress: null,
-                        shippingcontact: null,
-                        bankname: null,
-                        bankacc: null,
-                        completed: false,  //order status
-                        courier: null,
-                        tracking: null,
-                        accepted: false   //payment status
-                    }
-                    // Order.create(order).then(o => {
-                    Order.create(order).then(async o => {
-                        let orderItems = []
-                        for (let i = 0; i < carts.length; i++) {
-                            let product = await Product.findOne({
-                                where: {
-                                    id: carts[i].productId,
-                                }
-                            })
-                            product = await product.update( { quantity : product.quantity - carts[i].quantity } )
-                            orderItems.push({
-                                orderId: o.id,
-                                quantity: carts[i].quantity,
-                                price: carts[i].productPrice,
-                                productId: carts[i].productId
-                            })
-                        }
-                        OrderItem.bulkCreate(orderItems).then(() => {
-                            Cart.destroy({
-                                where: { userId: req.userId }
-                                })
-                                .then(() => {
-                                    res.status(200)
-                                })
-=======
-    Cart.findAll({
-        where: { userId: req.userId }
-    })
-        .then(carts => {
-            let order = {
-                userId: req.userId,
-                date: null,
-                payment: req.body.payment,
-                shippingname: null,
-                shippingaddress: null,
-                shippingcontact: null,
-                bankname: null,
-                bankacc: null,
-                completed: false,  //order status
-                accepted: false   //payment status
-            }
-            Order.create(order).then(async o => {
-                let orderItems = []
-                for (let i = 0; i < carts.length; i++) {
-                    let product = await Product.findOne({
-                        where: {
-                            id: carts[i].productId,
-                        }
-                    })
-                    product = await product.update( { quantity : product.quantity - carts[i].quantity } )
-                    orderItems.push({
-                        orderId: o.id,
-                        quantity: carts[i].quantity,
-                        price: carts[i].productPrice,
-                        productId: carts[i].productId
-                    })
+        Cart.findAll({
+            where: { userId: req.userId }
+        })
+            .then(carts => {
+                let order = {
+                    userId: req.userId,
+                    date: null,
+                    payment: req.body.payment,
+                    shippingname: null,
+                    shippingaddress: null,
+                    shippingcontact: null,
+                    bankname: null,
+                    bankacc: null,
+                    completed: false,  //order status
+                    courier: null,
+                    tracking: null,
+                    accepted: false   //payment status
                 }
-                OrderItem.bulkCreate(orderItems).then(() => {
-                    Cart.destroy({
-                        where: { userId: req.userId }
+                // Order.create(order).then(o => {
+                Order.create(order).then(async o => {
+                    let orderItems = []
+                    for (let i = 0; i < carts.length; i++) {
+                        let product = await Product.findOne({
+                            where: {
+                                id: carts[i].productId,
+                            }
                         })
-                        .then(() => {
-                            res.status(200)
->>>>>>> ac84fc7561cbff5b9ca97ce5be4b2fb4424e66b5
+                        product = await product.update({ quantity: product.quantity - carts[i].quantity })
+                        orderItems.push({
+                            orderId: o.id,
+                            quantity: carts[i].quantity,
+                            price: carts[i].productPrice,
+                            productId: carts[i].productId
                         })
+                    }
+                    OrderItem.bulkCreate(orderItems).then(() => {
+                        Cart.destroy({
+                            where: { userId: req.userId }
+                        })
+                            .then(() => {
+                                res.status(200)
+                            })
                     })
                 })
-<<<<<<< HEAD
-            
-        } catch (error) {
-            console.log(error)
-            res.status(500).json(error)
-        }
-};
-=======
             })
-        })
-};
->>>>>>> ac84fc7561cbff5b9ca97ce5be4b2fb4424e66b5
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
+}
