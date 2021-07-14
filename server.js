@@ -83,7 +83,7 @@ async function initial() {
                   " Machine wash cold, gentle cycle.",
     size: "XL",
     price: "87.00",
-    quantity: "5",
+    quantity: "35",
     published: true
   });
 
@@ -97,7 +97,7 @@ async function initial() {
                  " Textured fabric. Cool touch function. Adjustable inner drawstring.",
     size: "S",
     price: "49.90",
-    quantity: "12",
+    quantity: "37",
     published: true
   });
 
@@ -111,7 +111,7 @@ async function initial() {
                  " Machine wash cold, gentle cycle.",
     size: "L",
     price: "36.99",
-    quantity: "26",
+    quantity: "86",
     published: true
   });
 
@@ -125,7 +125,7 @@ async function initial() {
                  " Machine wash cold.",
     size: "S",
     price: "19.90",
-    quantity: "20",
+    quantity: "80",
     published: true
   });
 
@@ -139,7 +139,7 @@ async function initial() {
                  " Machine wash cold, gentle cycle.",
     size: "M",
     price: "69.90",
-    quantity: "45",
+    quantity: "75",
     published: true
   });
 

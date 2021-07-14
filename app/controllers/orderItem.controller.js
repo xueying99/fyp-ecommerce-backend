@@ -1,8 +1,6 @@
 const { orderItem } = require("../models");
 const db = require("../models");
 const Op = db.Sequelize.Op;
-// const Cart = db.cart;
-// const Order = db.order;
 const OrderItem = db.orderItem;
 
 exports.findAll = function (req, res) {

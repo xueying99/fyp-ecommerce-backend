@@ -5,7 +5,7 @@ const Product = db.products;
 const Cart = db.cart;
 const Order = db.order;
 const OrderItem = db.orderItem;
-const Product = db.products;
+
 
 exports.findAll = function (req, res) {
     console.log("findAll")
@@ -113,7 +113,6 @@ exports.checkout = (req, res) => {
                     tracking: null,
                     accepted: false   //payment status
                 }
-                // Order.create(order).then(o => {
                 Order.create(order).then(async o => {
                     let orderItems = []
                     for (let i = 0; i < carts.length; i++) {

@@ -1,9 +1,7 @@
-const { order, orderItem } = require("../models");
+const { order } = require("../models");
 const db = require("../models");
 const Op = db.Sequelize.Op;
 const Order = db.order;
-const OrderItem = db.orderItem;
-const Product = db.products;
 
 exports.findAll = function (req, res) {
     console.log("findAll")
